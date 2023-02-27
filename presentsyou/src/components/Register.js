@@ -1,11 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../UserContext";
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [gender, setGender] = useState("Male");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,7 +14,7 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("https://localhost:7054/Login", {
+    fetch("https://localhost:7054/Register", {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -24,9 +25,9 @@ export default function Login() {
       body: JSON.stringify({
         email: email,
         password: password,
-        firstName: "",
-        lastName: "",
-        gender: "",
+        firstName: firstName,
+        lastName: lastName,
+        gender: gender,
         githubProfile: "",
         linkedInProfile: "",
       }),
@@ -34,13 +35,12 @@ export default function Login() {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 400) {
-          console.log("No such user exists");
-          setStatusError("Invalid Email or Password");
+          console.log("Email already in use");
+          setStatusError("There exist an account on given email");
         } else {
-          console.log("Login Successful");
+          console.log("Sign Up successful");
           setStatusError("");
-          setUser(data);
-          navigate("/");
+          navigate("/login");
         }
       });
   };
@@ -56,11 +56,11 @@ export default function Login() {
 
       <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
         <h2 className="text-2xl font-semibold text-center text-gray-700 ">
-          Welcome Back
+          Welcome
         </h2>
 
         <p className="mt-2 text-xl text-center text-gray-600 ">
-          We are <span className="text-indigo-700 ">Happy</span> to see you back
+          Are you <span className="text-indigo-700 ">Ready?</span>
         </p>
 
         {statusError !== "" && (
@@ -70,7 +70,58 @@ export default function Login() {
         )}
 
         <form onSubmit={handleSubmit}>
-          <div className="mt-4">
+          <div className="mt-4 flex gap-2">
+            <div className="">
+              <label className="block mb-2 text-sm text-gray-600 ">
+                First Name
+              </label>
+              <input
+                type="text"
+                name="firstName"
+                className="w-full px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring focus:ring-primary  focus:ring-opacity-20"
+                required
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+            <div className="">
+              <label className="block mb-2 text-sm text-gray-600 ">
+                Last Name
+              </label>
+              <input
+                type="text"
+                name="lastName"
+                className="w-full px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring focus:ring-primary  focus:ring-opacity-20"
+                required
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="mt-2 flex gap-4">
+            <label className="block text-md text-gray-600 ">Gender</label>
+            <div className="flex">
+              <input
+                type="radio"
+                name="gender"
+                className="w-full px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none"
+                checked={gender === "Male"}
+                onChange={() => setGender("Male")}
+              />
+              <span className="px-1 text-gray-700">Male</span>
+            </div>
+            <div className="flex">
+              <input
+                type="radio"
+                name="gender"
+                className="w-full px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none"
+                checked={gender === "Female"}
+                onChange={() => setGender("Female")}
+              />
+              <span className="px-1 text-gray-700">Female</span>
+            </div>
+          </div>
+
+          <div className="mt-2">
             <label className="block mb-2 text-sm text-gray-600 ">
               E-Mail Address
             </label>
@@ -97,30 +148,12 @@ export default function Login() {
             />
           </div>
 
-          <div className="flex justify-between mt-4">
-            <div className="col-md-6 offset-md-4">
-              <div className="flex items-center">
-                <input
-                  className="border-gray-200 rounded shadow-sm text-indigo-700   focus:outline-none focus:ring focus:ring-primary  focus:ring-opacity-20"
-                  type="checkbox"
-                  name="remember"
-                  id="remember"
-                />
-
-                <label className="ml-2 text-gray-700">Remember Me</label>
-              </div>
-            </div>
-            <a className="text-sm text-gray-600 " href="/">
-              Forgot Your Password?
-            </a>
-          </div>
-
           <div className="mt-8">
             <button
               type="submit"
               className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform rounded-md bg-indigo-700 hover:bg-indigo-700 /70 focus:outline-none focus:bg-indigo-700 /70"
             >
-              Sign in
+              Sign Up
             </button>
           </div>
         </form>
@@ -129,10 +162,10 @@ export default function Login() {
           <span className="w-1/5 border-b  md:w-1/4"></span>
 
           <Link
-            to="/register"
+            to="/login"
             className="text-xs text-gray-500 uppercase  hover:underline"
           >
-            Create an account
+            Already have an Account?
           </Link>
 
           <span className="w-1/5 border-b  md:w-1/4"></span>
