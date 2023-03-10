@@ -1,22 +1,46 @@
-import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
+import { ReactSession } from "react-client-session";
 
-import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { UserContext } from "./UserContext";
+import Sidebar from "./components/Sidebar";
+import Home from "./pages/Home";
+import Projects from "./pages/Projects";
+import Education from "./pages/Education";
+import Experiences from "./pages/Experiences";
+
+function mainLayout() {
+  return (
+    <>
+      <Sidebar />
+      <div className="mt-14 p-4 md:ml-64">
+        <Outlet />
+      </div>
+    </>
+  );
+}
 
 function App() {
-  const [user, setUser] = useState(null);
+  ReactSession.setStoreType("sessionStorage");
+
   return (
     <Router>
-      <UserContext.Provider value={{ user, setUser }}>
-        <Routes>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={mainLayout()}>
           <Route index element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </UserContext.Provider>
+          <Route path="education" element={<Education />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="experiences" element={<Experiences />} />
+        </Route>
+      </Routes>
     </Router>
   );
 }

@@ -48,10 +48,7 @@ export default function Register() {
   return (
     <div className="flex max-w-lg mx-auto my-16 overflow-hidden bg-white rounded-lg lg:space-x-8 lg:max-w-5xl">
       <div className="items-center hidden lg:flex lg:w-1/2">
-        <img
-          src="/svg/secure-login-animate.svg"
-          alt="secure-login-animate.svg"
-        />
+        <img src="register_illu.jpg" alt="secure-login-animate.svg" />
       </div>
 
       <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
