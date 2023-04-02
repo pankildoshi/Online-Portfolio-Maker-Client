@@ -25,6 +25,7 @@ export default function Login() {
         password: password,
         firstName: "",
         lastName: "",
+        about: "",
         gender: "",
         githubProfile: "",
         linkedInProfile: "",
@@ -106,9 +107,6 @@ export default function Login() {
                 <label className="ml-2 text-gray-700">Remember Me</label>
               </div>
             </div>
-            <a className="text-sm text-gray-600 " href="/">
-              Forgot Your Password?
-            </a>
           </div>
 
           <div className="mt-8">

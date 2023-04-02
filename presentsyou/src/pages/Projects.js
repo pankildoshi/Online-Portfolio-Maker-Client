@@ -22,6 +22,12 @@ export default function Projects() {
   const [toggleModal, setToggleModal] = useState(true);
 
   useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  });
+
+  useEffect(() => {
     fetch("https://localhost:7054/api/Projects/GetProjectsByUserId/" + user.id)
       .then((res) => res.json())
       .then((data) => setProjects(data));
@@ -77,8 +83,11 @@ export default function Projects() {
         {projects.map((project) => (
           <ProjectCard
             key={project.id}
+            id={project.id}
             title={project.title}
             published={project.date}
+            month={project.date.split(" ")[0]}
+            year={project.date.split(" ")[1]}
             description={project.description}
             github={project.githubUrl}
             live={project.liveUrl}

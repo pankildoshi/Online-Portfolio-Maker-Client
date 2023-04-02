@@ -19,6 +19,12 @@ export default function Education() {
   const [toggleModal, setToggleModal] = useState(true);
 
   useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  });
+
+  useEffect(() => {
     fetch(
       "https://localhost:7054/api/Educations/GetEducationsByUserId/" + user.id
     )
@@ -28,15 +34,6 @@ export default function Education() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      JSON.stringify({
-        institute: institute,
-        degree: degree,
-        field: field,
-        grade: grade,
-        userId: user.id,
-      })
-    );
     fetch("https://localhost:7054/api/Educations/PostEducation", {
       method: "POST",
       crossDomain: true,
@@ -83,6 +80,7 @@ export default function Education() {
         {educations.map((education) => (
           <EducationCard
             key={education.id}
+            id={education.id}
             institute={education.institute}
             degree={education.degree}
             field={education.field}
@@ -156,6 +154,7 @@ export default function Education() {
                     <option value="B.Com">B.Com</option>
                     <option value="B.Pharm">B.Pharm</option>
                     <option value="BE">BE</option>
+                    <option value="Diploma">Diploma</option>
                   </select>
                 </div>
 

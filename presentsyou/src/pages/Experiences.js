@@ -22,6 +22,12 @@ export default function Experiences() {
   const [toggleModal, setToggleModal] = useState(true);
 
   useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  });
+
+  useEffect(() => {
     fetch(
       "https://localhost:7054/api/Experiences/GetExperiencesByUserId/" + user.id
     )
@@ -40,7 +46,7 @@ export default function Experiences() {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-        comapnyName: companyName,
+        companyName: companyName,
         role: role,
         description: description,
         startDate: startMonth + " " + startYear,
@@ -53,6 +59,7 @@ export default function Experiences() {
         if (data.status === 400) {
           console.error("Error Occured");
         } else {
+          console.log(data);
           console.info("Experience Added");
           setToggleModal(true);
           navigate("/experiences");
@@ -78,11 +85,14 @@ export default function Experiences() {
         {experiences.map((experience) => (
           <ExperienceCard
             key={experience.id}
+            id={experience.id}
             companyName={experience.companyName}
             role={experience.role}
             description={experience.description}
-            startDate={experience.startDate}
-            endDate={experience.endDate}
+            startMonth={experience.startDate.split(" ")[0]}
+            startYear={experience.startDate.split(" ")[1]}
+            endMonth={experience.endDate.split(" ")[0]}
+            endYear={experience.endDate.split(" ")[1]}
           />
         ))}
       </ul>

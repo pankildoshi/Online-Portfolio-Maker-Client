@@ -14,6 +14,8 @@ import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import Education from "./pages/Education";
 import Experiences from "./pages/Experiences";
+import PublicProfile from "./templates/template1/Index";
+import PageNotFound from "./pages/PageNotFound";
 
 function mainLayout() {
   return (
@@ -40,6 +42,8 @@ function App() {
           <Route path="projects" element={<Projects />} />
           <Route path="experiences" element={<Experiences />} />
         </Route>
+        <Route path="/profile/:id" element={<PublicProfile />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>
   );

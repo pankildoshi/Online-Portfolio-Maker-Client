@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import {
   MdSpaceDashboard,
-  MdAssignment,
   MdLogout,
   MdWebStories,
   MdScience,
 } from "react-icons/md";
 import { FaGraduationCap } from "react-icons/fa";
-import { ReactSession } from "react-client-session";
-
 import { IconContext } from "react-icons";
+
+import { ReactSession } from "react-client-session";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
@@ -48,11 +47,6 @@ export default function Sidebar() {
                 </svg>
               </button>
               <a href="/" className="flex ml-2 md:mr-24">
-                <img
-                  src="https://flowbite.com/docs/images/logo.svg"
-                  className="h-8 mr-3"
-                  alt="Logo"
-                />
                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap">
                   PresentsYou
                 </span>
@@ -67,11 +61,7 @@ export default function Sidebar() {
                     aria-expanded="false"
                     data-dropdown-toggle="dropdown-user"
                   >
-                    <img
-                      className="w-8 h-8 rounded-full"
-                      src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                      alt="user profile"
-                    />
+                    {/* User Logo */}
                     {user && (
                       <span className="px-2 font-normal text-gray-900">
                         {user.firstName + " " + user.lastName}
@@ -110,7 +100,7 @@ export default function Sidebar() {
                 >
                   <MdSpaceDashboard />
                 </IconContext.Provider>
-                <span className="ml-3">Dashboard</span>
+                <span className="ml-3">Public Profile</span>
               </Link>
             </li>
             <li>
@@ -167,23 +157,6 @@ export default function Sidebar() {
               </Link>
             </li>
             <li>
-              <Link
-                to="/"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 "
-              >
-                <IconContext.Provider
-                  value={{
-                    className: "shared-class",
-                    size: 24,
-                    color: "gray",
-                  }}
-                >
-                  <MdAssignment />
-                </IconContext.Provider>
-                <span className="flex-1 ml-3 whitespace-nowrap">Resume</span>
-              </Link>
-            </li>
-            <li>
               <button
                 onClick={() => {
                   ReactSession.remove("user");
@@ -200,7 +173,7 @@ export default function Sidebar() {
                 >
                   <MdLogout />
                 </IconContext.Provider>
-                <span className="flex-1 ml-3 whitespace-nowrap">Logout</span>
+                <span className="flex-1 ml-3 whitespace-nowrap">Sign Out</span>
               </button>
             </li>
           </ul>
