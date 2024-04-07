@@ -54,10 +54,4 @@ We welcome contributions from the community! If you'd like to contribute to the 
 - Make your changes and ensure that the code passes all tests.
 - Submit a pull request with a clear description of your changes.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
-## Contact
-
-If you have any questions or suggestions regarding Online Portfolio Maker, feel free to contact us at [your-email@example.com](mailto:your-email@example.com).
+Thank you 👋
